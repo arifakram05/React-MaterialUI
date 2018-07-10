@@ -1,34 +1,57 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { loadSingers } from '../actions/loadSingers';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import {red500} from 'material-ui/styles/colors';
+import SingerList from '../data/data.json';
 
-const Singers = () => {
+class Singers extends Component {
+
+  componentDidMount() {
+    console.log('singers list - ', SingerList);
+  }
+
+  renderSingers() {
+    if (this.props.singers) {
+      return this.props.singers.map((singer) => {
+        return (
+          <ListItem
+            leftAvatar={<Avatar src={singer.photo} />}
+            rightIconButton={<DeleteIcon color={red500} onClick={() => console.log('Deleting Singer...')}/>}
+            primaryText={singer.name}
+            secondaryText={<p>{singer.description}</p>}
+          />
+        );
+      });
+    }
+  }
+
+  render() {
     return (
       <List>
-        <ListItem
-          leftAvatar={<Avatar src="https://i.pinimg.com/736x/c5/59/67/c5596766934f914bcd2a19e3e934bc3a--taylor-swift-taylors.jpg" />}
-          rightIconButton={<DeleteIcon color={red500} onClick={() => console.log('Deleting Singer...')}/>}
-          primaryText="Taylor Swift"
-          secondaryText={
-            <p>{`Taylor Swift's middle name is Alison`}</p>
-          }
-        />
-        <Divider inset={true} />
-        <ListItem
-          leftAvatar={<Avatar src="https://pbs.twimg.com/profile_images/642109714537451524/vcvCa6bj.jpg" />}
-          rightIconButton={<DeleteIcon color={red500} />}
-          primaryText="Katy Perry"
-          secondaryText={
-            <p>{`Katy Perry's full name is Katheryn Elizabeth Hudson`}</p>
-          }
-        />
+        {this.renderSingers()}
         <Divider inset={true} />
       </List>
     );
+  }
 }
 
-export default Singers;
+function mapStateToProps(state) {
+  return {
+    singers: state.singers
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return loadSingers(SingerList);
+  // return {
+  //     dispatch(loadSingers(singerList));
+  // }
+  // return bindActionCreators({selectBook: selectBook}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Singers);

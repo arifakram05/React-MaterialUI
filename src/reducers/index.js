@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import Singers from './reducer_singers';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  singers: Singers,
 });
 
 export default rootReducer;
