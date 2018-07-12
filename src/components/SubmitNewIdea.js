@@ -21,7 +21,7 @@ function InputWithIcon(props) {
 
   return (
     <div>
-      <FormControl className={classes.margin}>
+      <FormControl className={classes.margin} required fullWidth error>
         <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel>
         <Input
           id="input-with-icon-adornment"

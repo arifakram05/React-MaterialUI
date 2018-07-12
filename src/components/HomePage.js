@@ -2,22 +2,24 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
+import AddCircle from '@material-ui/icons/AddCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import Panel from 'muicss/lib/react/panel';
-import SimpleList from './SimpleList';
+import NewIdea from './NewIdea';
 import SubmitNewIdea from './SubmitNewIdea';
 import SubmitNewIdea3 from './SubmitNewIdea3';
+import Container from 'muicss/lib/react/container';
 
-export default class IconTabs extends React.Component {
+export default class HomePage extends React.Component {
 
   state = {
+    // Value of the selected tab. Managed by MaterialUI
     value: 0,
   };
 
   handleChange = (event, value) => {
-    console.log('Number of the tab clicked is ', value);
+    // When a tab is selected, value is updated
     this.setState({ value });
   };
 
@@ -26,7 +28,7 @@ export default class IconTabs extends React.Component {
     let mainContent;
     switch (this.state.value) {
       case 0:
-        mainContent = <SimpleList />
+        mainContent = <NewIdea />
         break;
       case 1:
         mainContent = <SubmitNewIdea />
@@ -42,7 +44,9 @@ export default class IconTabs extends React.Component {
       <Paper style={{marginTop:'50px'}}>
 
         <Panel style={{height:500}}>
-          {mainContent}
+          <Container style={{padding: '50px 50px 50px 50px', height: '100%'}} >
+            {mainContent}
+          </Container>
         </Panel>
 
         <Tabs
@@ -52,9 +56,9 @@ export default class IconTabs extends React.Component {
           indicatorColor="primary"
           textColor="primary"
           centered >
-          <Tab icon={<PhoneIcon />} />
-          <Tab icon={<FavoriteIcon />} />
-          <Tab icon={<PersonPinIcon />} />
+          <Tab icon={<AddCircle color="primary" />} />
+          <Tab icon={<FavoriteIcon color="secondary" />} />
+          <Tab icon={<PersonPinIcon color="error" />} />
         </Tabs>
       </Paper>
     );

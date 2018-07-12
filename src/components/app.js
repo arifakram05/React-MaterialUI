@@ -5,7 +5,7 @@ import SubmitNewIdea2 from './SubmitNewIdea2';
 import SubmitNewIdea3 from './SubmitNewIdea3';
 import Paper from '@material-ui/core/Paper';
 import Container from 'muicss/lib/react/container';
-import IconTabs from './IconTabs';
+import HomePage from './HomePage';
 
 export default class App extends Component {
 
@@ -17,16 +17,7 @@ export default class App extends Component {
 
     return (
       <Container>
-          {/*
-          <SimpleList />
-          <SubmitNewIdea />
-          <br />
-          <SubmitNewIdea2 />
-          <br />
-          <SubmitNewIdea3 />
-          <br/>
-          */}
-          <IconTabs />
+          <HomePage />
       </Container>
     );
   }
