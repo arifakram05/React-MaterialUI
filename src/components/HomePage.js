@@ -9,7 +9,6 @@ import Panel from 'muicss/lib/react/panel';
 import NewIdea from './NewIdea';
 import SubmitNewIdea from './SubmitNewIdea';
 import SubmitNewIdea3 from './SubmitNewIdea3';
-import Container from 'muicss/lib/react/container';
 
 export default class HomePage extends React.Component {
 
@@ -42,13 +41,9 @@ export default class HomePage extends React.Component {
 
     return (
       <Paper style={{marginTop:'50px'}}>
-
         <Panel style={{height:500}}>
-          <Container style={{padding: '50px 50px 50px 50px', height: '100%'}} >
-            {mainContent}
-          </Container>
+          {mainContent}
         </Panel>
-
         <Tabs
           value={this.state.value}
           onChange={this.handleChange}
