@@ -14,6 +14,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import HighlightIcon from '@material-ui/icons/Highlight';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 
 class NewIdea extends Component {
@@ -22,28 +23,51 @@ class NewIdea extends Component {
     super(props);
     // component state
     this.state = {
-      postAnonymously: true,
-      doNotShowName: 'Post anonymously',
-      showName: 'Show identity'
+      formData: {
+        postAnonymously: true,
+        idea: '',
+        description: ''
+      }
     }
     // methods in this class
     this.handleChange = this.handleChange.bind(this);
+    this.submitIdea = this.submitIdea.bind(this);
   }
 
   // method that will be called after component is rendered
   componentDidMount() {
-    console.log('current state is ', this.state.postAnonymously)
+
   }
 
   // method that will be called after component is updated
   componentDidUpdate() {
-    console.log('state updated to ', this.state.postAnonymously)
+
   }
 
   // one of the methods of this class
   handleChange(event) {
-    this.setState({ postAnonymously: event.target.checked });
+    const formData = this.state.formData;
+    switch (event.target.name) {
+      case 'postAnonymously':
+        formData.postAnonymously = event.target.checked;
+        break;
+      case 'idea':
+        formData.idea = event.target.value;
+        break;
+      case 'description':
+        formData.description = event.target.value;
+        break;
+      default:
+        // do nothing
+    }
+    this.setState({ formData });
   };
+
+  submitIdea() {
+    console.log('Data to be submitted is ',
+      this.state.formData
+    );
+  }
 
   // render method - one of the lifecycle methods - necessary to override
   render() {
@@ -51,13 +75,6 @@ class NewIdea extends Component {
     const formStyles = {
       display: 'flex',
       flexWrap: 'wrap'
-    }
-
-    let label;
-    if (this.state.postAnonymously) {
-      label = this.state.doNotShowName;
-    } else {
-      label = this.state.showName;
     }
 
     return (
@@ -81,31 +98,38 @@ class NewIdea extends Component {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={this.state.postAnonymously}
+                      id="postAnonymously"
+                      name="postAnonymously"
+                      checked={this.state.formData.postAnonymously}
                       onChange={this.handleChange}
-                      value={"Post Anonymously"}
                     />
                   }
                   label="Post Anonymously"
                 />
                 <TextField
                   id="new_idea_title"
+                  name="idea"
                   label="My idea/suggestion is"
                   fullWidth
                   required
                   multiline
                   margin="normal"
+                  value={this.state.formData.idea}
+                  onChange={this.handleChange}
                 />
                 <TextField
                   id="new_idea_description"
+                  name="description"
                   label="My idea/suggestion description"
                   fullWidth
                   required
                   multiline
                   rows="4"
                   margin="normal"
+                  value={this.state.formData.description}
+                  onChange={this.handleChange}
                 />
-                <Button variant="outlined" color="primary" style={{'marginTop': "20px"}}>
+                <Button variant="outlined" color="primary" style={{'marginTop': "20px"}} onClick={this.submitIdea}>
                   Submit
                   <Send />
                 </Button>

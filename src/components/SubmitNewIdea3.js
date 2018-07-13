@@ -40,6 +40,7 @@ export default class SubmitNewIdea3 extends React.Component {
             >
                 <h2>Simple form</h2>
                 <TextValidator
+                    fullWidth
                     label="Email"
                     onChange={this.handleChange}
                     name="email"
@@ -49,6 +50,7 @@ export default class SubmitNewIdea3 extends React.Component {
                 />
                 <br />
                 <TextValidator
+                    fullWidth
                     label="Password"
                     onChange={this.handleChange}
                     name="password"
