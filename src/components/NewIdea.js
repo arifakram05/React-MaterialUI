@@ -27,11 +27,13 @@ class NewIdea extends Component {
         postAnonymously: true,
         idea: '',
         description: ''
-      }
+      },
+      canBeSubmitted: false
     }
     // methods in this class
     this.handleChange = this.handleChange.bind(this);
-    this.submitIdea = this.submitIdea.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   // method that will be called after component is rendered
@@ -42,6 +44,30 @@ class NewIdea extends Component {
   // method that will be called after component is updated
   componentDidUpdate() {
 
+  }
+
+  componentWillMount() {
+    // custom rule will have name 'notEmpty'
+    ValidatorForm.addValidationRule('notEmpty', (name, value) => {
+        switch (name) {
+          case 'idea':
+            if (this.state.formData.idea.trim() === '') {
+              return false;
+            } else {
+              return true;
+            }
+            break;
+          case 'description':
+            if (this.state.formData.description.trim() === '') {
+              return false;
+            } else {
+              return true;
+            }
+            break;
+          default:
+            return true;
+        }
+    });
   }
 
   // one of the methods of this class
@@ -63,10 +89,21 @@ class NewIdea extends Component {
     this.setState({ formData });
   };
 
-  submitIdea() {
-    console.log('Data to be submitted is ',
-      this.state.formData
-    );
+  handleSubmit(event) {
+    Object.keys(this.state.formData).forEach(key => {
+      if (key !== 'postAnonymously') {
+        this.refs[key].validate(key, event.target.value);
+      }
+    });
+    if (this.state.canBeSubmitted) {
+      console.log('Data to be submitted is ', this.state.formData);
+    }
+  }
+
+  handleBlur(event) {
+    console.log('Blur triggered');
+    // this.setState({ canBeSubmitted: true});
+    this.refs[event.target.name].validate(event.target.name, event.target.value);
   }
 
   // render method - one of the lifecycle methods - necessary to override
@@ -91,8 +128,8 @@ class NewIdea extends Component {
             </List>
           </Toolbar>
         </AppBar>
-        <Container style={{padding: '30px 50px 50px 50px', height: '100%'}} >
-          <form style={formStyles} noValidate autoComplete="off">
+        <Container style={{padding: '30px 50px 50px 50px', height: '100%'}}>
+          <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
             <FormControl fullWidth required>
               <FormGroup>
                 <FormControlLabel
@@ -106,21 +143,25 @@ class NewIdea extends Component {
                   }
                   label="Post Anonymously"
                 />
-                <TextField
+                <TextValidator
                   id="new_idea_title"
                   name="idea"
-                  label="My idea/suggestion is"
+                  ref="idea"
+                  label="Idea"
                   fullWidth
                   required
                   multiline
                   margin="normal"
                   value={this.state.formData.idea}
                   onChange={this.handleChange}
+                  validators={['notEmpty']}
+                  errorMessages={['Please fill this out']}
                 />
-                <TextField
+                <TextValidator
                   id="new_idea_description"
                   name="description"
-                  label="My idea/suggestion description"
+                  ref="description"
+                  label="Details"
                   fullWidth
                   required
                   multiline
@@ -128,14 +169,17 @@ class NewIdea extends Component {
                   margin="normal"
                   value={this.state.formData.description}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur}
+                  validators={['notEmpty']}
+                  errorMessages={['Please fill this out']}
                 />
-                <Button variant="outlined" color="primary" style={{'marginTop': "20px"}} onClick={this.submitIdea}>
+                <Button variant="outlined" color="primary" style={{'marginTop': "20px"}} onClick={this.handleSubmit}>
                   Submit
                   <Send />
                 </Button>
               </FormGroup>
             </FormControl>
-          </form>
+          </ValidatorForm>
         </Container>
       </React.Fragment>
     );
