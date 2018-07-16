@@ -123,8 +123,9 @@ class NewIdea extends Component {
     }
 
     const groups = [
-      { value: 'one', label: 'One' },
-      { value: 'two', label: 'Two' },
+      { value: 'Compass Dev', label: 'Compass Dev' },
+      { value: 'Infection Control', label: 'Infection Control' },
+      { value: 'Rehab Dev', label: 'Rehab Dev' },
     ];
 
     return (
@@ -168,6 +169,7 @@ class NewIdea extends Component {
                   removeSelected
         					rtl={false}
         					simpleValue
+                  required
                   options={groups}
                   value={this.state.formData.groups}
         				/>
