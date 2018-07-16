@@ -15,7 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import HighlightIcon from '@material-ui/icons/Highlight';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-
+import Select from 'react-select';
 
 class NewIdea extends Component {
 
@@ -26,14 +26,15 @@ class NewIdea extends Component {
       formData: {
         postAnonymously: true,
         idea: '',
-        description: ''
-      },
-      canBeSubmitted: false
+        description: '',
+        groups: ''
+      }
     }
     // methods in this class
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
   }
 
   // method that will be called after component is rendered
@@ -70,6 +71,13 @@ class NewIdea extends Component {
     });
   }
 
+  handleSelectChange (value) {
+    document.getElementsByClassName("Select-control")[0].style.borderColor = "";
+    const formData = this.state.formData;
+    formData.groups = value;
+    this.setState({ formData });
+	}
+
   // one of the methods of this class
   handleChange(event) {
     const formData = this.state.formData;
@@ -91,18 +99,18 @@ class NewIdea extends Component {
 
   handleSubmit(event) {
     Object.keys(this.state.formData).forEach(key => {
-      if (key !== 'postAnonymously') {
+      if (key !== 'postAnonymously' && key !== 'groups') {
         this.refs[key].validate(key, event.target.value);
       }
     });
-    if (this.state.canBeSubmitted) {
+    if (this.state.formData.groups !== '' && this.state.formData.idea !== '' && this.state.formData.description !== '') {
       console.log('Data to be submitted is ', this.state.formData);
+    } else if (this.state.formData.groups === '') {
+      document.getElementsByClassName("Select-control")[0].style.borderColor = "#f44336";
     }
   }
 
   handleBlur(event) {
-    console.log('Blur triggered');
-    // this.setState({ canBeSubmitted: true});
     this.refs[event.target.name].validate(event.target.name, event.target.value);
   }
 
@@ -113,6 +121,11 @@ class NewIdea extends Component {
       display: 'flex',
       flexWrap: 'wrap'
     }
+
+    const groups = [
+      { value: 'one', label: 'One' },
+      { value: 'two', label: 'Two' },
+    ];
 
     return (
       <React.Fragment>
@@ -142,7 +155,22 @@ class NewIdea extends Component {
                     />
                   }
                   label="Post Anonymously"
+                  style={{'marginBottom' : '16px'}}
                 />
+                <Select
+                  name="groups"
+                  ref="groups"
+                  id="groups"
+        					closeOnSelect={false}
+        					multi
+        					onChange={this.handleSelectChange}
+        					placeholder="Select group(s)"
+                  removeSelected
+        					rtl={false}
+        					simpleValue
+                  options={groups}
+                  value={this.state.formData.groups}
+        				/>
                 <TextValidator
                   id="new_idea_title"
                   name="idea"
@@ -155,7 +183,7 @@ class NewIdea extends Component {
                   value={this.state.formData.idea}
                   onChange={this.handleChange}
                   validators={['notEmpty']}
-                  errorMessages={['Please fill this out']}
+                  errorMessages={['']}
                 />
                 <TextValidator
                   id="new_idea_description"
@@ -171,7 +199,7 @@ class NewIdea extends Component {
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
                   validators={['notEmpty']}
-                  errorMessages={['Please fill this out']}
+                  errorMessages={['']}
                 />
                 <Button variant="outlined" color="primary" style={{'marginTop': "20px"}} onClick={this.handleSubmit}>
                   Submit
