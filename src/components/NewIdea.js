@@ -131,13 +131,13 @@ class NewIdea extends Component {
     return (
       <React.Fragment>
         <AppBar position="static" >
-          <Toolbar style={{backgroundColor:'#fff', height: '20px'}}>
+          <Toolbar style={{backgroundColor:'#2196f3', height: '20px'}}>
             <List>
               <ListItem>
-              <Avatar>
-                <HighlightIcon color="secondary" />
-              </Avatar>
-              <ListItemText primary="Submit a new idea" />
+                <Avatar>
+                  <HighlightIcon color="secondary" />
+                </Avatar>
+                <span style={{marginLeft: '15px', color:'#fff', fontSize: 'large'}}>Submit a new idea</span>
               </ListItem>
             </List>
           </Toolbar>

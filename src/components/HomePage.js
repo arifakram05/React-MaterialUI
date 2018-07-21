@@ -41,7 +41,7 @@ export default class HomePage extends React.Component {
 
     return (
       <Paper style={{marginTop:'50px'}}>
-        <Panel style={{height:500}}>
+        <Panel style={{height:'72vh'}}>
           {mainContent}
         </Panel>
         <Tabs
