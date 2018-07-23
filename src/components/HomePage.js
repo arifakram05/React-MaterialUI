@@ -7,8 +7,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import Panel from 'muicss/lib/react/panel';
 import NewIdea from './NewIdea';
-import SubmitNewIdea from './SubmitNewIdea';
 import SubmitNewIdea3 from './SubmitNewIdea3';
+import IdeasList from '../containers/IdeasList';
 
 export default class HomePage extends React.Component {
 
@@ -30,7 +30,7 @@ export default class HomePage extends React.Component {
         mainContent = <NewIdea />
         break;
       case 1:
-        mainContent = <SubmitNewIdea />
+        mainContent = <IdeasList />
         break;
       case 2:
         mainContent = <SubmitNewIdea3 />
@@ -48,12 +48,12 @@ export default class HomePage extends React.Component {
           value={this.state.value}
           onChange={this.handleChange}
           fullWidth
-          indicatorColor="primary"
+          indicatorColor="secondary"
           textColor="primary"
           centered >
-          <Tab icon={<AddCircle color="primary" />} />
-          <Tab icon={<FavoriteIcon color="secondary" />} />
-          <Tab icon={<PersonPinIcon color="error" />} />
+          <Tab icon={<AddCircle  />} />
+          <Tab icon={<FavoriteIcon />} />
+          <Tab icon={<PersonPinIcon />} />
         </Tabs>
       </Paper>
     );

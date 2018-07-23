@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SimpleList from './SimpleList';
 import SubmitNewIdea from './SubmitNewIdea';
-import SubmitNewIdea2 from './SubmitNewIdea2';
 import SubmitNewIdea3 from './SubmitNewIdea3';
 import Paper from '@material-ui/core/Paper';
 import Container from 'muicss/lib/react/container';
