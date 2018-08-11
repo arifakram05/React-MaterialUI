@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchAllIdeas } from '../actions/action_ideas';
+import { fetchAllGroups } from '../actions/action_groups';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,6 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import PersonIcon from '@material-ui/icons/Person';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
+import ListSubheader from '@material-ui/core/ListSubheader';
 
 class IdeasList extends Component {
 
@@ -24,20 +26,22 @@ class IdeasList extends Component {
         description: ''
       },
       oldSelectedGroupId: '',
+      activeGroup: '',
     };
   }
 
   componentWillMount() {
-    this.props.fetchAllIdeas();
+    this.props.fetchAllGroups();
   }
 
   componentDidUpdate() {
 
   }
 
-  showSelectedGroup(selectedIdea) {
-    console.log('selected idea: ', selectedIdea);
-    this.setState({ selectedIdea });
+  showSelectedGroup(group) {
+    console.log('selected group: ', group);
+    this.setState({activeGroup: group});
+    this.props.fetchAllIdeas(group);
   }
 
   styleSelectedGroup(selectedGroupId) {
@@ -53,14 +57,36 @@ class IdeasList extends Component {
   }
 
   getIdeasList() {
-    return this.props.ideas.map(idea => {
+    console.log("called getIdeasList - ", this.props.ideas);
+    console.log("selected idea - ", this.state.activeGroup);
+    if (this.props.ideas && this.props.ideas.length > 0) {
+      return this.props.ideas.map(idea => {
+        return (
+          <React.Fragment key={idea.id}>
+              <ListItem id={idea.id} key={idea.id} button>
+                <ListItemText primary={`${idea.idea}`} secondary={`${idea.description}`} />
+              </ListItem>
+          </React.Fragment>
+        );
+      });
+    } else if (this.state.activeGroup) {
       return (
-        <React.Fragment key={idea.id}>
-            <ListItem id={idea.id}
-                      key={idea.id} dense button
+        <div>
+          No Data.
+        </div>
+      );
+    }
+  }
+
+  getGroupsList() {
+    return this.props.groups.map(group => {
+      return (
+        <React.Fragment key={group}>
+            <ListItem id={group}
+                      key={group} dense button
                       style={{height: '32px'}}
-                      onClick={() => {this.showSelectedGroup(idea); this.styleSelectedGroup(idea.id)}}>
-              <ListItemText primary={`${idea.group}`} style={{color: '#d93025'}}/>
+                      onClick={() => {this.styleSelectedGroup(group); this.showSelectedGroup(group)}}>
+              <ListItemText primary={`${group}`}/>
             </ListItem>
         </React.Fragment>
       );
@@ -73,12 +99,15 @@ class IdeasList extends Component {
       <List>
         <div style={{'display': 'flex', 'flexWrap': 'wrap'}}>
           <div style={{'flex': '0 0 20%', 'whiteSpace': 'nowrap', 'overflow': 'hidden', 'textOverflow': 'ellipsis'}}>
-            {this.getIdeasList()}
+            <ListSubheader style={{'whiteSpace': 'nowrap', 'overflow': 'hidden', 'textOverflow': 'ellipsis'}}>Groups</ListSubheader>
+            {this.getGroupsList()}
           </div>
+
           <div style={{'flex': '0 0 2%'}} >
           </div>
+
           <div style={{'flex': '0 0 78%'}}>
-            {this.state.selectedIdea.idea}
+            {this.getIdeasList()}
           </div>
         </div>
       </List>
@@ -89,11 +118,12 @@ class IdeasList extends Component {
 function mapStateToProps(state) {
   return {
     ideas: state.ideas, // the name after 'state.' is the key in the redux object, it is mentioned in index.js of reducers
+    groups: state.groups,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchAllIdeas }, dispatch);
+  return bindActionCreators({ fetchAllIdeas, fetchAllGroups }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(IdeasList);

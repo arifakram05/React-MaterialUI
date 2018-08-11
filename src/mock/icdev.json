@@ -1,0 +1,33 @@
+[{
+  "id": 87724,
+  "group": "IC Dev",
+  "idea": "Need new flavors of lollipops",
+  "description": "Need new lollipops",
+  "likes": 21,
+  "dislikes": 4,
+  "comments": []
+}, {
+  "id": 532264,
+  "group": "IC Dev",
+  "idea": "Need more outings",
+  "description": "To build team, we need to have frequent team outings",
+  "likes": 11,
+  "dislikes": 6,
+  "comments": []
+}, {
+  "id": 87522,
+  "group": "IC Dev",
+  "idea": "Hire more engineers",
+  "description": "Please hire more engineers in order to reduce work load",
+  "likes": 9,
+  "dislikes": 14,
+  "comments": []
+}, {
+  "id": 875122,
+  "group": "IC Dev",
+  "idea": "Design Patterns",
+  "description": "Using design patters means better code quality",
+  "likes": 19,
+  "dislikes": 1,
+  "comments": []
+}]
