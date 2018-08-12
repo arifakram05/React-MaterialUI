@@ -13,12 +13,18 @@ import Divider from '@material-ui/core/Divider';
 
 export default class HomePage extends React.Component {
 
-  state = {
-    // Value of the selected tab. Managed by MaterialUI
-    value: 0,
-  };
+  constructor(props) {
+    super(props);
 
-  handleChange = (event, value) => {
+    this.state = {
+      // Value of the selected tab. Managed by MaterialUI
+      value: 0,
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event, value) {
     // When a tab is selected, value is updated
     this.setState({ value });
   };

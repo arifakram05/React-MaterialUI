@@ -1,30 +1,39 @@
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const htmlPlugin = new HtmlWebPackPlugin({
+  template: "./index.html",
+  filename: "./index.html"
+});
+
+const cssPlugin = new MiniCssExtractPlugin({
+  filename: "[name].css",
+  chunkFilename: "[id].css"
+});
+
 module.exports = {
-  entry: [
-    './src/index.js'
-  ],
-  output: {
-    path: __dirname,
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
+  entry: "./src/index.js",
   module: {
-    loaders: [{
+    rules: [{
+      test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015', 'stage-1']
+      use: {
+        loader: "babel-loader"
       }
     },
     {
-      test: /\.json$/,
-      loader: 'json'
+      test: /\.html$/,
+      use: [
+        {
+          loader: "html-loader",
+          options: { minimize: true }
+        }
+      ]
+    },
+    {
+      test: /\.css$/,
+      use: [MiniCssExtractPlugin.loader, "css-loader"]
     }]
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './'
-  }
+  plugins: [htmlPlugin, cssPlugin]
 };
