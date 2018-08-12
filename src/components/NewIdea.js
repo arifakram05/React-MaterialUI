@@ -16,6 +16,7 @@ import Avatar from '@material-ui/core/Avatar';
 import HighlightIcon from '@material-ui/icons/Highlight';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Select from 'react-select';
+import styles from '../../style/style.css';
 
 class NewIdea extends Component {
 
@@ -203,7 +204,7 @@ class NewIdea extends Component {
                   validators={['notEmpty']}
                   errorMessages={['']}
                 />
-                <Button variant="outlined" color="primary" style={{ 'marginTop': "30px" }} onClick={this.handleSubmit}>
+                <Button variant="outlined" color="primary" className={styles.topMargin30} onClick={this.handleSubmit}>
                   Submit
       <Send />
                 </Button>

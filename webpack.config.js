@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const combineLoaders = require('webpack-combine-loaders');
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./index.html",
@@ -32,7 +33,17 @@ module.exports = {
     },
     {
       test: /\.css$/,
-      use: [MiniCssExtractPlugin.loader, "css-loader"]
+      loader: combineLoaders([
+        {
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader',
+          query: {
+            modules: true,
+            localIdentName: '[name]__[local]___[hash:base64:5]'
+          }
+        }
+      ])
     }]
   },
   plugins: [htmlPlugin, cssPlugin]

@@ -17,6 +17,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import Badge from '@material-ui/core/Badge';
 import ThumbsUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbsDownIcon from '@material-ui/icons/ThumbDown';
+import styles from '../../style/style.css';
 
 class IdeasList extends Component {
 
@@ -69,10 +70,10 @@ class IdeasList extends Component {
             <ListItem id={idea.id} key={idea.id} button divider>
               <ListItemText primary={`${idea.idea}`} secondary={`${idea.description}`} />
               <ListItemSecondaryAction>
-                <Badge badgeContent={idea.likes} color="primary">
+                <Badge badgeContent={idea.likes} color="primary" classes={{ badge: styles.likesDislikesBadge, root: styles.likesDislikesIcon }}>
                   <ThumbsUpIcon />
                 </Badge>
-                <Badge badgeContent={idea.dislikes} color="secondary">
+                <Badge badgeContent={idea.dislikes} color="secondary" classes={{ badge: styles.likesDislikesBadge, root: styles.likesDislikesIcon }}>
                   <ThumbsDownIcon />
                 </Badge>
               </ListItemSecondaryAction>
