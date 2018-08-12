@@ -50,33 +50,33 @@ class NewIdea extends Component {
   componentWillMount() {
     // custom rule will have name 'notEmpty'
     ValidatorForm.addValidationRule('notEmpty', (name, value) => {
-        switch (name) {
-          case 'idea':
-            if (this.state.formData.idea.trim() === '') {
-              return false;
-            } else {
-              return true;
-            }
-            break;
-          case 'description':
-            if (this.state.formData.description.trim() === '') {
-              return false;
-            } else {
-              return true;
-            }
-            break;
-          default:
+      switch (name) {
+        case 'idea':
+          if (this.state.formData.idea.trim() === '') {
+            return false;
+          } else {
             return true;
-        }
+          }
+          break;
+        case 'description':
+          if (this.state.formData.description.trim() === '') {
+            return false;
+          } else {
+            return true;
+          }
+          break;
+        default:
+          return true;
+      }
     });
   }
 
-  handleSelectChange (value) {
+  handleSelectChange(value) {
     document.getElementsByClassName("Select-control")[0].style.borderColor = "";
     const formData = this.state.formData;
     formData.groups = value;
     this.setState({ formData });
-	}
+  }
 
   // one of the methods of this class
   handleChange(event) {
@@ -92,7 +92,7 @@ class NewIdea extends Component {
         formData.description = event.target.value;
         break;
       default:
-        // do nothing
+      // do nothing
     }
     this.setState({ formData });
   };
@@ -131,18 +131,18 @@ class NewIdea extends Component {
     return (
       <React.Fragment>
         <AppBar position="static" >
-          <Toolbar style={{backgroundColor:'#2196f3', height: '20px'}}>
+          <Toolbar style={{ backgroundColor: '#2196f3', height: '20px' }}>
             <List>
               <ListItem>
                 <Avatar>
                   <HighlightIcon color="secondary" />
                 </Avatar>
-                <span style={{marginLeft: '15px', color:'#fff', fontSize: 'large'}}>Submit a new idea</span>
+                <span style={{ marginLeft: '15px', color: '#fff', fontSize: 'large' }}>Submit a new idea</span>
               </ListItem>
             </List>
           </Toolbar>
         </AppBar>
-        <Container style={{padding: '30px 50px 50px 50px', height: '100%'}}>
+        <Container style={{ padding: '30px 50px 50px 50px', height: '100%'}}>
           <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
             <FormControl fullWidth required>
               <FormGroup>
@@ -156,23 +156,23 @@ class NewIdea extends Component {
                     />
                   }
                   label="Post Anonymously"
-                  style={{'marginBottom' : '16px'}}
+                  style={{ 'marginBottom': '16px' }}
                 />
                 <Select
                   name="groups"
                   ref="groups"
                   id="groups"
-        					closeOnSelect={false}
-        					multi
-        					onChange={this.handleSelectChange}
-        					placeholder="Select group(s)"
+                  closeOnSelect={false}
+                  multi
+                  onChange={this.handleSelectChange}
+                  placeholder="Select group(s)"
                   removeSelected
-        					rtl={false}
-        					simpleValue
+                  rtl={false}
+                  simpleValue
                   required
                   options={groups}
                   value={this.state.formData.groups}
-        				/>
+                />
                 <TextValidator
                   id="new_idea_title"
                   name="idea"
@@ -203,9 +203,9 @@ class NewIdea extends Component {
                   validators={['notEmpty']}
                   errorMessages={['']}
                 />
-                <Button variant="outlined" color="primary" style={{'marginTop': "20px"}} onClick={this.handleSubmit}>
+                <Button variant="outlined" color="primary" style={{ 'marginTop': "30px" }} onClick={this.handleSubmit}>
                   Submit
-                  <Send />
+      <Send />
                 </Button>
               </FormGroup>
             </FormControl>

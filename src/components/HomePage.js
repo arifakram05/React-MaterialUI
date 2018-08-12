@@ -9,6 +9,7 @@ import Panel from 'muicss/lib/react/panel';
 import NewIdea from './NewIdea';
 import SubmitNewIdea3 from './SubmitNewIdea3';
 import IdeasList from '../containers/IdeasList';
+import Divider from '@material-ui/core/Divider';
 
 export default class HomePage extends React.Component {
 
@@ -36,25 +37,28 @@ export default class HomePage extends React.Component {
         mainContent = <SubmitNewIdea3 />
         break;
       default:
-        // nothing
+      // nothing
     }
 
     return (
-      <Paper style={{marginTop:'50px'}}>
-        <Panel style={{height:'72vh'}}>
-          {mainContent}
+      <Paper style={{ marginTop: '50px' }}>
+        <Panel>
+          <div style={{ height: '500px' }}>
+            {mainContent}
+          </div>
+          <Divider />
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            fullWidth
+            indicatorColor="secondary"
+            textColor="primary"
+            centered >
+            <Tab icon={<AddCircle />} />
+            <Tab icon={<FavoriteIcon />} />
+            <Tab icon={<PersonPinIcon />} />
+          </Tabs>
         </Panel>
-        <Tabs
-          value={this.state.value}
-          onChange={this.handleChange}
-          fullWidth
-          indicatorColor="secondary"
-          textColor="primary"
-          centered >
-          <Tab icon={<AddCircle  />} />
-          <Tab icon={<FavoriteIcon />} />
-          <Tab icon={<PersonPinIcon />} />
-        </Tabs>
       </Paper>
     );
   }

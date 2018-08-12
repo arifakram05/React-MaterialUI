@@ -14,6 +14,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import Badge from '@material-ui/core/Badge';
+import ThumbsUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbsDownIcon from '@material-ui/icons/ThumbDown';
 
 class IdeasList extends Component {
 
@@ -40,7 +43,7 @@ class IdeasList extends Component {
 
   showSelectedGroup(group) {
     console.log('selected group: ', group);
-    this.setState({activeGroup: group});
+    this.setState({ activeGroup: group });
     this.props.fetchAllIdeas(group);
   }
 
@@ -63,16 +66,24 @@ class IdeasList extends Component {
       return this.props.ideas.map(idea => {
         return (
           <React.Fragment key={idea.id}>
-              <ListItem id={idea.id} key={idea.id} button>
-                <ListItemText primary={`${idea.idea}`} secondary={`${idea.description}`} />
-              </ListItem>
+            <ListItem id={idea.id} key={idea.id} button divider>
+              <ListItemText primary={`${idea.idea}`} secondary={`${idea.description}`} />
+              <ListItemSecondaryAction>
+                <Badge badgeContent={idea.likes} color="primary">
+                  <ThumbsUpIcon />
+                </Badge>
+                <Badge badgeContent={idea.dislikes} color="secondary">
+                  <ThumbsDownIcon />
+                </Badge>
+              </ListItemSecondaryAction>
+            </ListItem>
           </React.Fragment>
         );
       });
     } else if (this.state.activeGroup) {
       return (
         <div>
-          No Data.
+          No data to show.
         </div>
       );
     }
@@ -82,12 +93,12 @@ class IdeasList extends Component {
     return this.props.groups.map(group => {
       return (
         <React.Fragment key={group}>
-            <ListItem id={group}
-                      key={group} dense button
-                      style={{height: '32px'}}
-                      onClick={() => {this.styleSelectedGroup(group); this.showSelectedGroup(group)}}>
-              <ListItemText primary={`${group}`}/>
-            </ListItem>
+          <ListItem id={group}
+            key={group} dense button
+            style={{ height: '32px' }}
+            onClick={() => { this.styleSelectedGroup(group); this.showSelectedGroup(group) }}>
+            <ListItemText primary={`${group}`} />
+          </ListItem>
         </React.Fragment>
       );
     });
@@ -97,16 +108,16 @@ class IdeasList extends Component {
 
     return (
       <List>
-        <div style={{'display': 'flex', 'flexWrap': 'wrap'}}>
-          <div style={{'flex': '0 0 20%', 'whiteSpace': 'nowrap', 'overflow': 'hidden', 'textOverflow': 'ellipsis'}}>
-            <ListSubheader style={{'whiteSpace': 'nowrap', 'overflow': 'hidden', 'textOverflow': 'ellipsis'}}>Groups</ListSubheader>
+        <div style={{ 'display': 'flex', 'flexWrap': 'wrap' }}>
+          <div style={{ 'flex': '0 0 20%', 'whiteSpace': 'nowrap', 'overflow': 'hidden', 'textOverflow': 'ellipsis' }}>
+            <ListSubheader style={{ 'whiteSpace': 'nowrap', 'overflow': 'hidden', 'textOverflow': 'ellipsis' }}>Groups</ListSubheader>
             {this.getGroupsList()}
           </div>
 
-          <div style={{'flex': '0 0 2%'}} >
+          <div style={{ 'flex': '0 0 2%' }} >
           </div>
 
-          <div style={{'flex': '0 0 78%'}}>
+          <div style={{ 'flex': '0 0 78%' }}>
             {this.getIdeasList()}
           </div>
         </div>
