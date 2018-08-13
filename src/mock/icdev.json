@@ -5,7 +5,7 @@
   "description": "Need new lollipops",
   "likes": 21,
   "dislikes": 4,
-  "comments": []
+  "comments": 3
 }, {
   "id": 532264,
   "group": "IC Dev",
@@ -13,7 +13,7 @@
   "description": "To build team, we need to have frequent team outings",
   "likes": 11,
   "dislikes": 6,
-  "comments": []
+  "comments": 22
 }, {
   "id": 87522,
   "group": "IC Dev",
@@ -21,7 +21,7 @@
   "description": "Please hire more engineers in order to reduce work load",
   "likes": 9,
   "dislikes": 14,
-  "comments": []
+  "comments": 11
 }, {
   "id": 875122,
   "group": "IC Dev",
@@ -29,5 +29,5 @@
   "description": "Using design patters means better code quality",
   "likes": 19,
   "dislikes": 1,
-  "comments": []
+  "comments": 9
 }]

@@ -1,8 +1,8 @@
-.likesDislikesBadge {
+.badge {
     top: -22px !important;
 }
 
-.likesDislikesIcon {
+.icon {
     margin-left: 10px;
     margin-right: 10px;
 }

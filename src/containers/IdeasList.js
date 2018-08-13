@@ -15,6 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Badge from '@material-ui/core/Badge';
+import CommentIcon from '@material-ui/icons/Comment';
 import ThumbsUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbsDownIcon from '@material-ui/icons/ThumbDown';
 import styles from '../../style/style.css';
@@ -31,6 +32,7 @@ class IdeasList extends Component {
       },
       oldSelectedGroupId: '',
       activeGroup: '',
+      showFullIdeaDetails: false,
     };
   }
 
@@ -60,6 +62,11 @@ class IdeasList extends Component {
     this.setState({ oldSelectedGroupId: selectedGroupId });
   }
 
+  showFullIdeaDetails(idea) {
+    console.log('Entire idea details ', idea);
+    this.setState({ showFullIdeaDetails: true });
+  }
+
   getIdeasList() {
     console.log("called getIdeasList - ", this.props.ideas);
     console.log("selected idea - ", this.state.activeGroup);
@@ -67,14 +74,17 @@ class IdeasList extends Component {
       return this.props.ideas.map(idea => {
         return (
           <React.Fragment key={idea.id}>
-            <ListItem id={idea.id} key={idea.id} button divider>
+            <ListItem id={idea.id} key={idea.id} button divider onClick={() => { this.showFullIdeaDetails(idea) }}>
               <ListItemText primary={`${idea.idea}`} secondary={`${idea.description}`} />
               <ListItemSecondaryAction>
-                <Badge badgeContent={idea.likes} color="primary" classes={{ badge: styles.likesDislikesBadge, root: styles.likesDislikesIcon }}>
+                <Badge badgeContent={idea.likes} color="primary" classes={{ badge: styles.badge, root: styles.icon }}>
                   <ThumbsUpIcon />
                 </Badge>
-                <Badge badgeContent={idea.dislikes} color="secondary" classes={{ badge: styles.likesDislikesBadge, root: styles.likesDislikesIcon }}>
+                <Badge badgeContent={idea.dislikes} color="secondary" classes={{ badge: styles.badge, root: styles.icon }}>
                   <ThumbsDownIcon />
+                </Badge>
+                <Badge badgeContent={idea.comments} color="error" classes={{ badge: styles.badge, root: styles.icon }}>
+                  <CommentIcon />
                 </Badge>
               </ListItemSecondaryAction>
             </ListItem>
@@ -119,7 +129,8 @@ class IdeasList extends Component {
           </div>
 
           <div style={{ 'flex': '0 0 78%' }}>
-            {this.getIdeasList()}
+            {/* conditional rendering inside of return method i.e. inline rendering */}
+            {this.state.showFullIdeaDetails ? <div>Hello...</div> : this.getIdeasList()}
           </div>
         </div>
       </List>
