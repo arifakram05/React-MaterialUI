@@ -143,7 +143,7 @@ class NewIdea extends Component {
             </List>
           </Toolbar>
         </AppBar>
-        <Container style={{ padding: '30px 50px 50px 50px', height: '100%'}}>
+        <Container style={{ padding: '30px 50px 50px 50px', height: '100%' }}>
           <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
             <FormControl fullWidth required>
               <FormGroup>

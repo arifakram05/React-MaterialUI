@@ -18,6 +18,7 @@ import Badge from '@material-ui/core/Badge';
 import CommentIcon from '@material-ui/icons/Comment';
 import ThumbsUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbsDownIcon from '@material-ui/icons/ThumbDown';
+import IdeaDetails from './IdeaDetails';
 import styles from '../../style/style.css';
 
 class IdeasList extends Component {
@@ -33,7 +34,12 @@ class IdeasList extends Component {
       oldSelectedGroupId: '',
       activeGroup: '',
       showFullIdeaDetails: false,
+      activeIdea: {
+
+      }
     };
+
+    this.hideFullIdeaDetails = this.hideFullIdeaDetails.bind(this);
   }
 
   componentWillMount() {
@@ -46,7 +52,8 @@ class IdeasList extends Component {
 
   showSelectedGroup(group) {
     console.log('selected group: ', group);
-    this.setState({ activeGroup: group });
+    // set the selected group as active and hide full details about an idea
+    this.setState({ activeGroup: group, showFullIdeaDetails: false });
     this.props.fetchAllIdeas(group);
   }
 
@@ -64,12 +71,18 @@ class IdeasList extends Component {
 
   showFullIdeaDetails(idea) {
     console.log('Entire idea details ', idea);
-    this.setState({ showFullIdeaDetails: true });
+    this.setState({ showFullIdeaDetails: true, activeIdea: idea });
+  }
+
+  hideFullIdeaDetails() {
+    console.log('showing all ideas');
+    this.setState({ showFullIdeaDetails: false, activeIdea: {} });
   }
 
   getIdeasList() {
     console.log("called getIdeasList - ", this.props.ideas);
     console.log("selected idea - ", this.state.activeGroup);
+
     if (this.props.ideas && this.props.ideas.length > 0) {
       return this.props.ideas.map(idea => {
         return (
@@ -106,7 +119,7 @@ class IdeasList extends Component {
         <React.Fragment key={group}>
           <ListItem id={group}
             key={group} dense button
-            style={{ height: '32px' }}
+            style={{ backgroundColor: this.state.activeGroup === group ? 'pink' : 'white', height: '32px' }}
             onClick={() => { this.styleSelectedGroup(group); this.showSelectedGroup(group) }}>
             <ListItemText primary={`${group}`} />
           </ListItem>
@@ -130,7 +143,7 @@ class IdeasList extends Component {
 
           <div style={{ 'flex': '0 0 78%' }}>
             {/* conditional rendering inside of return method i.e. inline rendering */}
-            {this.state.showFullIdeaDetails ? <div>Hello...</div> : this.getIdeasList()}
+            {this.state.showFullIdeaDetails ? <IdeaDetails goBack={this.hideFullIdeaDetails} idea={this.state.activeIdea} /> : this.getIdeasList()}
           </div>
         </div>
       </List>
