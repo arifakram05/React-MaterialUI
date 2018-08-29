@@ -17,7 +17,12 @@ class Singers extends Component {
   }
 
   componentDidUpdate() {
-    console.log('User Status: ', this.props.status);
+    if (this.props.status) {
+      console.log('User Status: ', this.props.status);
+    }
+    if (this.props.userDetails) {
+      console.log('obtained user details are - ', this.props.userDetails);
+    }
   }
 
   process() {
@@ -55,7 +60,8 @@ class Singers extends Component {
 
 function mapStateToProps(state) {
   return {
-    status: state.users.status
+    status: state.users.status,
+    userDetails: state.users.userDetails,
   };
 }
 

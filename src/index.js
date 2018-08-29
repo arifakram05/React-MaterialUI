@@ -4,15 +4,21 @@ import ReactDOM from 'react-dom'; // Main React DOM lib
 import { Provider } from 'react-redux'; // Injects Redux to components
 import { createStore, applyMiddleware } from 'redux'; // Redux
 import ReduxPromise from 'redux-promise'; // Middleware
+import createSagaMiddleware from 'redux-saga'; // Redux saga
 
 import App from './components/app';
-import reducers from './reducers'; // import reducers
+import rootReducer from './reducers/index'; // import reducers
+import sagas from './sagas/sagas'; // import sagas
 
+// const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 // Configure middleware with redux-promise for AJAX requests
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+const defaultState = {};
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, defaultState, applyMiddleware(ReduxPromise, sagaMiddleware));
+sagaMiddleware.run(sagas)
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <App />
   </Provider>
   , document.querySelector('.container'));
