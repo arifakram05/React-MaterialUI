@@ -1,21 +1,30 @@
-import React from 'react';
-import {List, ListItem} from 'material-ui/List';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
-import {red500} from 'material-ui/styles/colors';
+import { red500 } from 'material-ui/styles/colors';
+import { fetchToDos } from '../actions/action_todos'
 
-const Singers = () => {
+class Singers extends Component {
+
+  componentDidUpdate() {
+    console.log('Todos Status: ', this.props.status.todosStatus);
+  }
+
+  render() {
     return (
       <List>
         <ListItem
           leftAvatar={<Avatar src="https://i.pinimg.com/736x/c5/59/67/c5596766934f914bcd2a19e3e934bc3a--taylor-swift-taylors.jpg" />}
-          rightIconButton={<DeleteIcon color={red500} onClick={() => console.log('Deleting Singer...')}/>}
+          rightIconButton={<DeleteIcon color={red500} onClick={() => console.log('Deleting Singer...')} />}
           primaryText="Taylor Swift"
           secondaryText={
             <p>{`Taylor Swift's middle name is Alison`}</p>
           }
+          onClick={() => this.props.fetchToDos(1)}
         />
         <Divider inset={true} />
         <ListItem
@@ -29,6 +38,18 @@ const Singers = () => {
         <Divider inset={true} />
       </List>
     );
+  }
+
 }
 
-export default Singers;
+function mapStateToProps(state) {
+  return {
+    status: state.todos
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchToDos }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Singers);
