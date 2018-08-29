@@ -10,8 +10,18 @@ import { fetchUsers } from '../actions/action_users'
 
 class Singers extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.process = this.process.bind(this);
+  }
+
   componentDidUpdate() {
     console.log('User Status: ', this.props.status);
+  }
+
+  process() {
+    console.log('clicked on process');
   }
 
   render() {
@@ -34,6 +44,7 @@ class Singers extends Component {
           secondaryText={
             <p>{`Katy Perry's full name is Katheryn Elizabeth Hudson`}</p>
           }
+          onClick={this.process}
         />
         <Divider inset={true} />
       </List>
