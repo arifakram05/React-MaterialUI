@@ -6,12 +6,12 @@ import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import { red500 } from 'material-ui/styles/colors';
-import { fetchToDos } from '../actions/action_todos'
+import { fetchUsers } from '../actions/action_users'
 
 class Singers extends Component {
 
   componentDidUpdate() {
-    console.log('Todos Status: ', this.props.status.todosStatus);
+    console.log('User Status: ', this.props.status);
   }
 
   render() {
@@ -24,7 +24,7 @@ class Singers extends Component {
           secondaryText={
             <p>{`Taylor Swift's middle name is Alison`}</p>
           }
-          onClick={() => this.props.fetchToDos(1)}
+          onClick={() => this.props.fetchUsers(1)}
         />
         <Divider inset={true} />
         <ListItem
@@ -44,12 +44,12 @@ class Singers extends Component {
 
 function mapStateToProps(state) {
   return {
-    status: state.todos
+    status: state.users.status
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchToDos }, dispatch);
+  return bindActionCreators({ fetchUsers }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Singers);
