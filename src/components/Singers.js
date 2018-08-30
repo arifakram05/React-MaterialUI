@@ -23,10 +23,14 @@ class Singers extends Component {
     if (this.props.userDetails) {
       console.log('obtained user details are - ', this.props.userDetails);
     }
+    if (this.props.errorDetails) {
+      console.log('error occurred while fetching user details - ', this.props.errorDetails);
+    }
   }
 
-  process() {
-    console.log('clicked on process');
+  process(userId) {
+    console.log('fetching user details....');
+    this.props.fetchUsers(userId);
   }
 
   render() {
@@ -39,7 +43,7 @@ class Singers extends Component {
           secondaryText={
             <p>{`Taylor Swift's middle name is Alison`}</p>
           }
-          onClick={() => this.props.fetchUsers(1)}
+          onClick={() => this.process(1)}
         />
         <Divider inset={true} />
         <ListItem
@@ -49,7 +53,7 @@ class Singers extends Component {
           secondaryText={
             <p>{`Katy Perry's full name is Katheryn Elizabeth Hudson`}</p>
           }
-          onClick={this.process}
+          onClick={() => this.process(2)}
         />
         <Divider inset={true} />
       </List>
@@ -62,6 +66,7 @@ function mapStateToProps(state) {
   return {
     status: state.users.status,
     userDetails: state.users.userDetails,
+    errorDetails: state.users.errorDetails,
   };
 }
 

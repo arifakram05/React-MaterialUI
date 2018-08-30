@@ -7,12 +7,10 @@ export default function (state = {}, action) {
             return { status: 'processing' };
         case 'FETCH_USERS_SUCCESS':
             console.log('Received success response: ', action.payload);
-            //return action.payload;
             return { userDetails: action.payload }
         case 'FETCH_USERS_FAILURE':
             console.log('Received error response: ', action.payload);
             return { errorDetails: action.payload }
-            // return action.payload;
         default:
             return state;
     }

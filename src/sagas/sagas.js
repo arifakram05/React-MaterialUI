@@ -1,6 +1,5 @@
 import { takeEvery } from 'redux-saga';
 import { fork, call, put } from 'redux-saga/effects';
-import { URL } from '../constants/constants';
 import axios from 'axios';
 
 // sagas are asynchronous i.e. all these functions run in the background.
@@ -9,41 +8,40 @@ import axios from 'axios';
 function fetchUsers(userId) {
   // once this method is called, an api all is made to given URI
   const url = `https://jsonplaceholder.typicode.com/users/${userId}`;
-  return axios.get(url).then((data) => {
-    console.log('successful response - ', data);
-    return data.data;
+  return axios.get(url).then((response) => {
+    console.log('success response - ', response);
+    return {response: response.data};
+  }).catch((error) => {
+    console.log('error response - ', error);
+    return {error: error};
   });
 }
 
 // every api call will have two generator functions
 
 function* callUsers(action) {
-  // const result = yield call(getPosts); // getPosts() method is called at this point, and its outcome is stored in variable, result
-  // yield put({ type: 'FETCH_USERS_SUCCESS', result }); // dispatch another action (action type is FETCH_POSTS_SUCCESS) such that state is updated
-
-  try {
     console.log('action is ', action);
-    const result = yield call(fetchUsers, action.userId);
-    console.log('result is ', result);
-    yield put({
-      type: "FETCH_USERS_SUCCESS",
-      payload: result
-    });
-  } catch (e) {
-    yield put({
-      type: "FETCH_USERS_FAILURE",
-      payload: result
-    });
-  }
+    const {response, error} = yield call(fetchUsers, action.userId);// fetchUsers() is called with given parameter values
+    if(response) {
+      yield put({
+        type: "FETCH_USERS_SUCCESS",
+        payload: response
+      }); // dispatch another action (action type is FETCH_USERS_SUCCESS) such that state is updated
+    } else {
+      yield put({
+        type: "FETCH_USERS_FAILURE",
+        payload: error
+      }); // dispatch another action (action type is FETCH_USERS_FAILURE) such that state is updated
+    }
 }
 
 // this generator function is a listener, and is listening for a type of action.
-// In this case it is - FETCH_POSTS
+// In this case it is - FETCH_USERS
 // In order for it to listen, you will have to fork it i.e. mention this in fork()
-// Once it hears the FETCH_POSTS action type, it calls callPosts() method.
+// Once it hears the FETCH_USERS action type, it calls callUsers() method.
 // All this happens in the background.
 function* getUsersSaga() {
-  yield* takeEvery('FETCH_USERS', callUsers); // once it heard what it is listening for, it will call callPosts method
+  yield* takeEvery('FETCH_USERS', callUsers); // once it heard what it is listening for, it will call callUsers method
 }
 
 export default function* root() {
