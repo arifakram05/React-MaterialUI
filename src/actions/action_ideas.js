@@ -19,7 +19,7 @@ export function fetchAllIdeas(group) {
       groupToReturn = ICDev;
       break;
     default:
-      // do nothing
+      groupToReturn = [];
   }
   return {
     type: FETCH_ALL_IDEAS,

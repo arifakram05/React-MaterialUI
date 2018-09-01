@@ -27,7 +27,6 @@ class IdeasList extends Component {
         idea: '',
         description: ''
       },
-      oldSelectedGroupId: '',
       activeGroup: '',
       showFullIdeaDetails: false,
       activeIdea: {
@@ -42,8 +41,10 @@ class IdeasList extends Component {
     this.props.fetchAllGroups();
   }
 
-  componentDidUpdate() {
-
+  componentDidMount() {
+    console.log('Groups is ', this.props.groups);
+    this.props.fetchAllIdeas('My Inbox');
+    this.setState({ activeGroup: 'My Inbox' });
   }
 
   showSelectedGroup(group) {
@@ -51,18 +52,6 @@ class IdeasList extends Component {
     // set the selected group as active and hide full details about an idea
     this.setState({ activeGroup: group, showFullIdeaDetails: false });
     this.props.fetchAllIdeas(group);
-  }
-
-  styleSelectedGroup(selectedGroupId) {
-    // clear the styling on previously selected group
-    if (this.state.oldSelectedGroupId) {
-      document.getElementById(this.state.oldSelectedGroupId).style.backgroundColor = '';
-      document.getElementById(this.state.oldSelectedGroupId).style.WebkitBorderRadius = '';
-    }
-    // apply new styling on currently selected group
-    document.getElementById(selectedGroupId).style.backgroundColor = '#fce8e6';
-    document.getElementById(selectedGroupId).style.WebkitBorderRadius = '0 16px 16px 0';
-    this.setState({ oldSelectedGroupId: selectedGroupId });
   }
 
   showFullIdeaDetails(idea) {
@@ -115,8 +104,8 @@ class IdeasList extends Component {
         <React.Fragment key={group}>
           <ListItem id={group}
             key={group} dense button
-            style={{ backgroundColor: this.state.activeGroup === group ? 'pink' : 'white', height: '32px' }}
-            onClick={() => { this.styleSelectedGroup(group); this.showSelectedGroup(group) }}>
+            style={{ backgroundColor: this.state.activeGroup === group ? 'pink' : 'white', height: '32px',  WebkitBorderRadius: '0 16px 16px 0'}}
+            onClick={() => { this.showSelectedGroup(group) }}>
             <ListItemText primary={`${group}`} />
           </ListItem>
         </React.Fragment>
