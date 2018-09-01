@@ -3,11 +3,9 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddCircle from '@material-ui/icons/AddCircle';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
+import ListIcon from '@material-ui/icons/List';
 import Panel from 'muicss/lib/react/panel';
 import NewIdea from './NewIdea';
-import SubmitNewIdea3 from './SubmitNewIdea3';
 import IdeasList from '../containers/IdeasList';
 import Divider from '@material-ui/core/Divider';
 
@@ -34,13 +32,10 @@ export default class HomePage extends React.Component {
     let mainContent;
     switch (this.state.value) {
       case 0:
-        mainContent = <NewIdea />
-        break;
-      case 1:
         mainContent = <IdeasList />
         break;
-      case 2:
-        mainContent = <SubmitNewIdea3 />
+      case 1:
+        mainContent = <NewIdea />
         break;
       default:
       // nothing
@@ -60,9 +55,8 @@ export default class HomePage extends React.Component {
             indicatorColor="secondary"
             textColor="primary"
             centered >
+            <Tab icon={<ListIcon />} />
             <Tab icon={<AddCircle />} />
-            <Tab icon={<FavoriteIcon />} />
-            <Tab icon={<PersonPinIcon />} />
           </Tabs>
         </Panel>
       </Paper>

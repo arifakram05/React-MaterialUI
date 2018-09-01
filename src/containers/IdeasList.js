@@ -14,6 +14,7 @@ import CommentIcon from '@material-ui/icons/Comment';
 import ThumbsUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbsDownIcon from '@material-ui/icons/ThumbDown';
 import IdeaDetails from './IdeaDetails';
+
 import styles from '../../style/style.css';
 
 class IdeasList extends Component {
