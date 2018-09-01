@@ -49,7 +49,7 @@ export default class HomePage extends React.Component {
     return (
       <Paper style={{ marginTop: '50px' }}>
         <Panel>
-          <div style={{ height: '500px' }}>
+          <div style={{ minHeight: '500px' }}>
             {mainContent}
           </div>
           <Divider />

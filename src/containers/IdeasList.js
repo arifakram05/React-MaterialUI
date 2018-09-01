@@ -8,11 +8,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import Checkbox from '@material-ui/core/Checkbox';
-import PersonIcon from '@material-ui/icons/Person';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Badge from '@material-ui/core/Badge';
 import CommentIcon from '@material-ui/icons/Comment';
@@ -88,7 +83,7 @@ class IdeasList extends Component {
         return (
           <React.Fragment key={idea.id}>
             <ListItem id={idea.id} key={idea.id} button divider onClick={() => { this.showFullIdeaDetails(idea) }}>
-              <ListItemText primary={`${idea.idea}`} secondary={`${idea.description}`} />
+              <ListItemText primary={`${idea.idea}`} secondary={`${idea.description}`} classes={{ secondary: styles.ideasListSecondaryText }} />
               <ListItemSecondaryAction>
                 <Badge badgeContent={idea.likes} color="primary" classes={{ badge: styles.badge, root: styles.icon }}>
                   <ThumbsUpIcon />

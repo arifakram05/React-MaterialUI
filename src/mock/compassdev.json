@@ -1,25 +1,29 @@
-[{
-  "id": 12435,
-  "group": "Compass Dev",
-  "idea": "Get more experienced people",
-  "description": "We need to hire more experienced people in UI development",
-  "likes": 21,
-  "dislikes": 4,
-  "comments": 22
-}, {
-  "id": 53264,
-  "group": "Compass Dev",
-  "idea": "Need more outings",
-  "description": "To build team, we need to have frequent team outings",
-  "likes": 11,
-  "dislikes": 6,
-  "comments": 1
-}, {
-  "id": 872522,
-  "group": "Compass Dev",
-  "idea": "Need more cubicles",
-  "description": "Please assign own cubicle to interns",
-  "likes": 9,
-  "dislikes": 14,
-  "comments": 0
-}]
+[
+  {
+    "id": 12435,
+    "group": "Compass Dev",
+    "idea": "Get more experienced people",
+    "description": "We need to hire more experienced people in UI development",
+    "likes": 21,
+    "dislikes": 4,
+    "comments": 22
+  },
+  {
+    "id": 53264,
+    "group": "Compass Dev",
+    "idea": "Need more outings",
+    "description": "A description is an arrangement of properties, qualities, and features that the author must pick (choose, select), but the art lies in the order of their release—visually, audibly, conceptually—and consequently in the order of their interaction, including the social standing of every word.",
+    "likes": 11,
+    "dislikes": 6,
+    "comments": 1
+  },
+  {
+    "id": 872522,
+    "group": "Compass Dev",
+    "idea": "Need more cubicles",
+    "description": "Please assign own cubicle to interns",
+    "likes": 9,
+    "dislikes": 14,
+    "comments": 0
+  }
+]

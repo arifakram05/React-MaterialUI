@@ -17,3 +17,14 @@
     background-color: rgb(252, 232, 230) !important;
     cursor: pointer;
 }
+
+.ideasListSecondaryText {
+    max-width: 600px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}

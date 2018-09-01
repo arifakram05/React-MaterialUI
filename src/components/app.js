@@ -43,7 +43,7 @@ export default class App extends Component {
             IBOX
         </div>
           <Container>
-            <HomePage />
+            <HomePage/>
           </Container>
         </div>
       </React.Fragment>
