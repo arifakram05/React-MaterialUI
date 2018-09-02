@@ -21,7 +21,7 @@ const styles = {
   bodyStyle: {
     overflow: 'hidden',
     margin: '0',
-    height: '100%',
+    minHeight: '100%',
     width: '100%',
   }
 };
